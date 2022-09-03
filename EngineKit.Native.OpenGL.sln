@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_items", "_items", "{1113A5FE-A6CA-492A-9B0D-784767AEB573}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+		.gitignore = .gitignore
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\cd.yml = .github\workflows\cd.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D8FDD221-308F-4FAE-A90A-B5B6C467DB1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineKit.Native.OpenGL", "src\EngineKit.Native.OpenGL\EngineKit.Native.OpenGL.csproj", "{70AB0F2B-40F7-435C-B565-1C00ED8FF833}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70AB0F2B-40F7-435C-B565-1C00ED8FF833} = {D8FDD221-308F-4FAE-A90A-B5B6C467DB1F}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

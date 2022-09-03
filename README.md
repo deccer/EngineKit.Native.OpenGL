@@ -1,2 +1,3 @@
-# EngineKit.Native.GL
+# EngineKit.Native.OpenGL
+
 OpenGL Bindings
