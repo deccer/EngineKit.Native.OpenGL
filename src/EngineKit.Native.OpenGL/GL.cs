@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using EngineKit.Mathematics;
+// ReSharper disable InconsistentNaming
 
 namespace EngineKit.Native.OpenGL;
 
