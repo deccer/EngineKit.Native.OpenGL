@@ -288,6 +288,17 @@ public static unsafe partial class GL
             indices);
     }
 
+    public static void DrawElementsInstanced(
+        PrimitiveType primitiveType,
+        int elementCount,
+        IndexElementType elementType,
+        nint elementOffset,
+        int instanceCount)
+    {
+        var indices = (void*)elementOffset;
+        _glDrawElementsInstancedDelegate(primitiveType, elementCount, elementType, indices, instanceCount);
+    }
+
     public static void DrawElementsIndirect(
         PrimitiveType primitiveType,
         IndexElementType indexElementType,

@@ -80,8 +80,17 @@ public static unsafe partial class GL
         _glDrawArraysInstancedBaseInstanceDelegate =
             &glDrawArraysInstancedBaseInstance;
 
+    private static delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, void> _glDrawElementsDelegate =
+        &glDrawElements;
+
+    private static delegate* unmanaged<PrimitiveType, int, IndexElementType, int, int, void>
+        _glDrawElementsBaseVertexDelegate = &glDrawElementsBaseVertex;
+
     private static delegate* unmanaged<PrimitiveType, IndexElementType, void*, void> _glDrawElementsIndirectDelegate =
         &glDrawElementsIndirect;
+
+    private static delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, int, void>
+        _glDrawElementsInstancedDelegate = &glDrawElementsInstanced;
 
     private static delegate* unmanaged<EnableType, void> _glEnableDelegate = &glEnable;
 
@@ -159,12 +168,6 @@ public static unsafe partial class GL
         &glNamedFramebufferDrawBuffers;
 
     private static delegate* unmanaged<IntPtr, void*, void> _glDebugMessageCallbackDelegate = &glDebugMessageCallback;
-
-    private static delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, void> _glDrawElementsDelegate =
-        &glDrawElements;
-
-    private static delegate* unmanaged<PrimitiveType, int, IndexElementType, int, int, void>
-        _glDrawElementsBaseVertexDelegate = &glDrawElementsBaseVertex;
 
     private static delegate* unmanaged<uint, uint, uint, IntPtr, int, void> _glVertexArrayVertexBufferDelegate =
         &glVertexArrayVertexBuffer;
@@ -661,6 +664,20 @@ public static unsafe partial class GL
             type,
             indices,
             baseVertex);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glDrawElementsInstanced(
+        PrimitiveType primitiveType,
+        int indexCount,
+        IndexElementType indexElementType,
+        void* indices,
+        int instanceCount)
+    {
+        _glDrawElementsInstancedDelegate =
+            (delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, int, void>)Glfw.Glfw.GetProcAddress(
+                nameof(glDrawElementsInstanced));
+        _glDrawElementsInstancedDelegate(primitiveType, indexCount, indexElementType, indices, instanceCount);
     }
 
     [UnmanagedCallersOnly]
