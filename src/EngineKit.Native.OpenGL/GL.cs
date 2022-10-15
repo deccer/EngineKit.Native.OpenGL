@@ -335,17 +335,6 @@ public static unsafe partial class GL
             baseVertex);
     }
 
-    public static void DrawElements(
-        PrimitiveType primitiveType,
-        int firstVertex,
-        uint vertexCount)
-    {
-        _glDrawArraysDelegate(
-            primitiveType,
-            firstVertex,
-            vertexCount);
-    }
-
     public static void DrawArraysInstancedBaseInstance(
         PrimitiveType primitiveType,
         int firstVertex,
