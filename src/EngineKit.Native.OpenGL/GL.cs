@@ -323,15 +323,15 @@ public static unsafe partial class GL
     public static void DrawElementsBaseVertex(
         PrimitiveType primitiveType,
         int elementCount,
-        IndexElementType elementsType,
-        int indices,
+        IndexElementType indexElementType,
+        int elementOffset,
         int baseVertex)
     {
         _glDrawElementsBaseVertexDelegate(
             primitiveType,
             elementCount,
-            elementsType,
-            indices,
+            indexElementType,
+            elementOffset,
             baseVertex);
     }
 
