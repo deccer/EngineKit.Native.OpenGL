@@ -885,6 +885,12 @@ public static partial class GL
         TextureMaxAnisotropy = 34046,
     }
 
+    public enum TextureCompareMode : uint
+    {
+        None = 0,
+        CompareRefToTexture = 34894,
+    }
+
     public enum Filter : uint
     {
         Nearest = 0x2600,
