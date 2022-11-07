@@ -241,6 +241,11 @@ public static unsafe partial class GL
         _glDeleteTexturesDelegate(1, &texture);
     }
 
+    public static void DeleteSampler(uint sampler)
+    {
+        _glDeleteSamplersDelegate(1, &sampler);
+    }
+
     public static void DepthFunc(CompareOperation compareOperation)
     {
         _glDepthFuncDelegate(compareOperation);

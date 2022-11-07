@@ -64,6 +64,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, void> _glDeleteProgramDelegate = &glDeleteProgram;
     private static delegate* unmanaged<uint, void> _glDeleteProgramPipelineDelegate = &glDeleteProgramPipeline;
     private static delegate* unmanaged<uint, uint*, void> _glDeleteTexturesDelegate = &glDeleteTextures;
+    private static delegate* unmanaged<uint, uint*, void> _glDeleteSamplersDelegate = &glDeleteSamplers;
 
     private static delegate* unmanaged<CompareOperation, void> _glDepthFuncDelegate = &glDepthFunc;
     private static delegate* unmanaged<byte, void> _glDepthMaskDelegate = &glDepthMask;
@@ -564,6 +565,13 @@ public static unsafe partial class GL
         _glDeleteTexturesDelegate =
             (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteTextures));
         _glDeleteTexturesDelegate(count, textureIds);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glDeleteSamplers(uint count, uint* samplerIds)
+    {
+        _glDeleteSamplersDelegate = (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteSamplers));
+        _glDeleteSamplersDelegate(count, samplerIds);
     }
 
     [UnmanagedCallersOnly]
