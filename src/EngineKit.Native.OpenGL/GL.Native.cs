@@ -217,6 +217,12 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, SamplerParameterF, float, void> _glSamplerParameterfDelegate =
         &glSamplerParameterf;
 
+    private static delegate* unmanaged<uint, SamplerParameterF, float*, void> _glSamplerParameterfvDelegate =
+        &glSamplerParameterfv;
+
+    private static delegate* unmanaged<uint, SamplerParameterI, int*, void> _glSamplerParameterivDelegate =
+        &glSamplerParameteriv;
+
     private static delegate* unmanaged<uint, uint, void> _glBindSamplerDelegate = &glBindSampler;
 
     private static delegate* unmanaged<uint, uint, int, int, int, int, int, int, int, int, ClearBufferMask,
@@ -1318,13 +1324,25 @@ public static unsafe partial class GL
     [UnmanagedCallersOnly]
     private static void glSamplerParameteri(
         uint sampler,
-        SamplerParameterI pname,
+        SamplerParameterI parameterName,
         int param)
     {
         _glSamplerParameteriDelegate =
             (delegate* unmanaged<uint, SamplerParameterI, int, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glSamplerParameteri));
-        _glSamplerParameteriDelegate(sampler, pname, param);
+        _glSamplerParameteriDelegate(sampler, parameterName, param);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glSamplerParameteriv(
+        uint sampler,
+        SamplerParameterI parameterName,
+        int* parameterValues)
+    {
+        _glSamplerParameterivDelegate =
+            (delegate* unmanaged<uint, SamplerParameterI, int*, void>)Glfw.Glfw.GetProcAddress(
+                nameof(glSamplerParameteriv));
+        _glSamplerParameterivDelegate(sampler, parameterName, parameterValues);
     }
 
     [UnmanagedCallersOnly]
@@ -1337,6 +1355,18 @@ public static unsafe partial class GL
             (delegate* unmanaged<uint, SamplerParameterF, float, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glSamplerParameterf));
         _glSamplerParameterfDelegate(sampler, parameterName, parameterValue);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glSamplerParameterfv(
+        uint sampler,
+        SamplerParameterF parameterName,
+        float* parameterValues)
+    {
+        _glSamplerParameterfvDelegate =
+            (delegate* unmanaged<uint, SamplerParameterF, float*, void>)Glfw.Glfw.GetProcAddress(
+                nameof(glSamplerParameterfv));
+        _glSamplerParameterfvDelegate(sampler, parameterName, parameterValues);
     }
 
     [UnmanagedCallersOnly]

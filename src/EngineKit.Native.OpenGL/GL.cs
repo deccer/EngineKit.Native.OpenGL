@@ -1067,10 +1067,32 @@ public static unsafe partial class GL
 
     public static void SamplerParameter(
         uint sampler,
+        SamplerParameterI parameterName,
+        in int[] parameterValues)
+    {
+        fixed (int* parameterValuesPtr = &parameterValues[0])
+        {
+            _glSamplerParameterivDelegate(sampler, parameterName, parameterValuesPtr);
+        }
+    }
+
+    public static void SamplerParameter(
+        uint sampler,
         SamplerParameterF parameterName,
         float parameterValue)
     {
         _glSamplerParameterfDelegate(sampler, parameterName, parameterValue);
+    }
+
+    public static void SamplerParameter(
+        uint sampler,
+        SamplerParameterF parameterName,
+        in float[] parameterValues)
+    {
+        fixed (float* parameterValuesPtr = &parameterValues[0])
+        {
+            _glSamplerParameterfvDelegate(sampler, parameterName, parameterValuesPtr);
+        }
     }
 
     public static void BindSampler(
