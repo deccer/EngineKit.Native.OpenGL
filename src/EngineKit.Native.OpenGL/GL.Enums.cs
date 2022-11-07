@@ -867,6 +867,7 @@ public static partial class GL
 
     public enum SamplerParameterI : uint
     {
+        TextureBorderColor = 4100,
         TextureMagFilter = 10240,
         TextureMinFilter = 10241,
         TextureWrapS = 10242,
