@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using EngineKit.Mathematics;
+using OpenTK.Mathematics;
+
 // ReSharper disable InconsistentNaming
 
 namespace EngineKit.Native.OpenGL;
@@ -706,22 +707,22 @@ public static unsafe partial class GL
             relativeOffset);
     }
 
-    public static void Viewport(Viewport viewport)
+    public static void Viewport(Vector4i viewport)
     {
         _glViewportDelegate(
             viewport.X,
             viewport.Y,
-            viewport.Width,
-            viewport.Height);
+            viewport.Z,
+            viewport.W);
     }
 
-    public static void Scissor(Viewport viewport)
+    public static void Scissor(Vector4i viewport)
     {
         _glScissorDelegate(
             viewport.X,
             viewport.Y,
-            viewport.Width,
-            viewport.Height);
+            viewport.Z,
+            viewport.W);
     }
 
     public static void Scissor(int x, int y, int width, int height)
