@@ -1175,4 +1175,14 @@ public static unsafe partial class GL
         _glGetQueryObjectuivDelegate(query, parameterName, &result);
         return result;
     }
+
+    public static void TextureParameter(int texture, TextureParameterName textureParameterName, int value)
+    {
+        _glTextureParameteriDelegate(texture, textureParameterName, value);
+    }
+
+    public static void TextureParameter(int texture, TextureParameterName textureParameterName, float value)
+    {
+        _glTextureParameterfDelegate(texture, textureParameterName, value);
+    }
 }

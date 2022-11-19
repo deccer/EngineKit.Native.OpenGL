@@ -233,6 +233,23 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, uint, int, int, int, int, int, int, int, int, ClearBufferMask,
         BlitFramebufferFilter, void> _glBlitNamedFramebufferDelegate = &glBlitNamedFramebuffer;
 
+    private static delegate* unmanaged<int, TextureParameterName, int, void> _glTextureParameteriDelegate = &glTextureParameteri;
+    private static delegate* unmanaged<int, TextureParameterName, float, void> _glTextureParameterfDelegate = &glTextureParameterf;
+
+    [UnmanagedCallersOnly]
+    private static void glTextureParameteri(int texture, TextureParameterName textureParameterName, int param)
+    {
+        _glTextureParameteriDelegate = (delegate* unmanaged<int, TextureParameterName, int, void>)Glfw.Glfw.GetProcAddress(nameof(glTextureParameteri));
+        _glTextureParameteriDelegate(texture, textureParameterName, param);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glTextureParameterf(int texture, TextureParameterName textureParameterName, float param)
+    {
+        _glTextureParameterfDelegate = (delegate* unmanaged<int, TextureParameterName, float, void>)Glfw.Glfw.GetProcAddress(nameof(glTextureParameterf));
+        _glTextureParameterfDelegate(texture, textureParameterName, param);
+    }
+
     [UnmanagedCallersOnly]
     private static void glGenerateTextureMipmap(uint texture)
     {
