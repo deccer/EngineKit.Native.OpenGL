@@ -1151,4 +1151,28 @@ public static unsafe partial class GL
             mask,
             filter);
     }
+
+    public static int CreateQuery(QueryTarget queryTarget)
+    {
+        var query = 0;
+        _glCreateQueriesDelegate(queryTarget, 1, &query);
+        return query;
+    }
+
+    public static void BeginQuery(QueryTarget queryTarget, int query)
+    {
+        _glBeginQueryDelegate(queryTarget, query);
+    }
+
+    public static void EndQuery(QueryTarget queryTarget)
+    {
+        _glEndQueryDelegate(queryTarget);
+    }
+
+    public static uint GetQueryObject(int query, QueryObjectParameterName parameterName)
+    {
+        var result = 0u;
+        _glGetQueryObjectuivDelegate(query, parameterName, &result);
+        return result;
+    }
 }

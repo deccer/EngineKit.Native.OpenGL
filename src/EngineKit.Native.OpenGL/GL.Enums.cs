@@ -901,4 +901,26 @@ public static partial class GL
         NearestMipmapLinear = 0x2702,
         LinearMipmapLinear = 02703
     }
+
+    public enum QueryObjectParameterName : uint
+    {
+        QueryResult = 34918,
+        QueryResultAvailable = 34919,
+        QueryResultNoWait = 37268,
+        QueryTarget = 33514,
+    }
+
+    public enum QueryTarget : uint
+    {
+        SamplesPassed = 35092,
+        PrimitivesGenerated = 35975,
+        TransformFeedbackPrimitivesWritten = 35976,
+        AnySamplesPassed = 35887,
+        TimeElapsed = 35007,
+        AnySamplesPassedConservative = 36202,
+        VerticesSubmitted = 33518,
+        PrimitivesSubmitted = 33519,
+        VertexShaderInvocations = 33520,
+        TransformFeedbackOverflow = 33516,
+    }
 }

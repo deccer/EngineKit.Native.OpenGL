@@ -17,6 +17,11 @@ public static unsafe partial class GL
     private static delegate* unmanaged<float, float, float, float, void> _glBlendColorDelegate = &glBlendColor;
     private static delegate* unmanaged<void> _glFinishDelegate = &glFinish;
 
+    private static delegate* unmanaged<QueryTarget, int, void> _glBeginQueryDelegate = &glBeginQuery;
+    private static delegate* unmanaged<QueryTarget, void> _glEndQueryDelegate = &glEndQuery;
+    private static delegate* unmanaged<QueryTarget, int, int*, void> _glCreateQueriesDelegate = &glCreateQueries;
+    private static delegate* unmanaged<int, QueryObjectParameterName, uint*, void> _glGetQueryObjectuivDelegate = &glGetQueryObjectuiv;
+
     private static delegate* unmanaged<BlendEquationMode, void> _glBlendEquationDelegate = &glBlendEquation;
     private static delegate* unmanaged<BlendFactor, BlendFactor, void> _glBlendFuncDelegate = &glBlendFunc;
 
@@ -1421,5 +1426,33 @@ public static unsafe partial class GL
     {
         _glGetStringDelegate = (delegate* unmanaged<StringName, byte*>)Glfw.Glfw.GetProcAddress(nameof(glGetString));
         return _glGetStringDelegate(name);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glBeginQuery(QueryTarget target, int id)
+    {
+        _glBeginQueryDelegate = (delegate* unmanaged<QueryTarget, int, void>)Glfw.Glfw.GetProcAddress(nameof(glBeginQuery));
+        _glBeginQueryDelegate(target, id);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glEndQuery(QueryTarget target)
+    {
+        _glEndQueryDelegate = (delegate* unmanaged<QueryTarget, void>)Glfw.Glfw.GetProcAddress(nameof(glEndQuery));
+        _glEndQueryDelegate(target);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glCreateQueries(QueryTarget target, int n, int* ids)
+    {
+        _glCreateQueriesDelegate = (delegate* unmanaged<QueryTarget, int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateQueries));
+        _glCreateQueriesDelegate(target, n, ids);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetQueryObjectuiv(int id, QueryObjectParameterName pname, uint* parameters)
+    {
+        _glGetQueryObjectuivDelegate = (delegate* unmanaged<int, QueryObjectParameterName, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glGetQueryObjectuiv));
+        _glGetQueryObjectuivDelegate(id, pname, parameters);
     }
 }
