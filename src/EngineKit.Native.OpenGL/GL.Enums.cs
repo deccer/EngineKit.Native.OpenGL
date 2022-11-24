@@ -966,4 +966,33 @@ public static partial class GL
         TexturePriorityExt = 32870,
         TextureMemoryLayoutIntel = 33791,
     }
+    
+    [Flags]
+    public enum MemoryBarrierMask : uint
+    {
+        VertexAttribArrayBarrierBit = 1,
+        ElementArrayBarrierBit = 2,
+        UniformBarrierBit = 4,
+        TextureFetchBarrierBit = 8,
+        ShaderGlobalAccessBarrierBitNv = 16,
+        ShaderImageAccessBarrierBit = 32,
+        CommandBarrierBit = 64,
+        PixelBufferBarrierBit = 128,
+        TextureUpdateBarrierBit = 256,
+        BufferUpdateBarrierBit = 512,
+        FramebufferBarrierBit = 1024,
+        TransformFeedbackBarrierBit = 2048,
+        AtomicCounterBarrierBit = 4096,
+        ShaderStorageBarrierBit = 8192,
+        ClientMappedBufferBarrierBit = 16384,
+        QueryBufferBarrierBit = 32768,
+        AllBarrierBits = 4294967295,
+    }
+
+    public enum MemoryAccess : uint
+    {
+        ReadOnly = 0x88B8,
+        WriteOnly = 0x88B9,
+        ReadWrite = 0x88BA
+    }
 }

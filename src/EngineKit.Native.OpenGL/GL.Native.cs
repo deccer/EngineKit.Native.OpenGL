@@ -232,6 +232,8 @@ public static unsafe partial class GL
 
     private static delegate* unmanaged<uint, uint, int, int, int, int, int, int, int, int, ClearBufferMask,
         BlitFramebufferFilter, void> _glBlitNamedFramebufferDelegate = &glBlitNamedFramebuffer;
+    
+    private static delegate* unmanaged<MemoryBarrierMask, void> _glMemoryBarrierDelegate = &glMemoryBarrier;
 
     private static delegate* unmanaged<int, TextureParameterName, int, void> _glTextureParameteriDelegate = &glTextureParameteri;
     private static delegate* unmanaged<int, TextureParameterName, float, void> _glTextureParameterfDelegate = &glTextureParameterf;
@@ -249,6 +251,13 @@ public static unsafe partial class GL
         _glTextureParameterfDelegate = (delegate* unmanaged<int, TextureParameterName, float, void>)Glfw.Glfw.GetProcAddress(nameof(glTextureParameterf));
         _glTextureParameterfDelegate(texture, textureParameterName, param);
     }
+
+    private static delegate* unmanaged<uint, int, int, byte, int, MemoryAccess, SizedInternalFormat, void>
+        _glBindImageTextureDelegate = &glBindImageTexture;
+    private static delegate* unmanaged<uint, int, int*, void> _glBindImageTexturesDelegate = &glBindImageTextures;
+    
+    private static delegate* unmanaged<uint, uint, uint, void> _glDispatchComputeDelegate = &glDispatchCompute;
+    private static delegate* unmanaged<IntPtr, void> _glDispatchComputeIndirectDelegate = &glDispatchComputeIndirect;
 
     [UnmanagedCallersOnly]
     private static void glGenerateTextureMipmap(uint texture)
@@ -1471,5 +1480,50 @@ public static unsafe partial class GL
     {
         _glGetQueryObjectuivDelegate = (delegate* unmanaged<int, QueryObjectParameterName, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glGetQueryObjectuiv));
         _glGetQueryObjectuivDelegate(id, pname, parameters);
+    }
+    
+    [UnmanagedCallersOnly]
+    private static void glMemoryBarrier(MemoryBarrierMask barriers)
+    {
+        _glMemoryBarrierDelegate = (delegate* unmanaged<MemoryBarrierMask, void>)Glfw.Glfw.GetProcAddress(nameof(glMemoryBarrier));
+        _glMemoryBarrierDelegate(barriers);
+    }
+    
+    [UnmanagedCallersOnly]
+    private static void glBindImageTexture(
+        uint unit,
+        int texture,
+        int level,
+        byte layered,
+        int layer,
+        MemoryAccess access,
+        SizedInternalFormat format)
+    {
+        _glBindImageTextureDelegate = (delegate* unmanaged<uint, int, int, byte, int, MemoryAccess, SizedInternalFormat, void>)Glfw.Glfw.GetProcAddress(nameof(glBindImageTexture));
+        _glBindImageTextureDelegate(unit, texture, level, layered, layer, access, format);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glBindImageTextures(
+        uint first,
+        int count,
+        int* textures)
+    {
+        _glBindImageTexturesDelegate = (delegate* unmanaged<uint, int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glBindImageTextures));
+        _glBindImageTexturesDelegate(first, count, textures);
+    }
+    
+    [UnmanagedCallersOnly]
+    private static void glDispatchCompute(uint numGroupsX, uint numGroupsY, uint numGroupsZ)
+    {
+        _glDispatchComputeDelegate = (delegate* unmanaged<uint, uint, uint, void>)Glfw.Glfw.GetProcAddress(nameof(glDispatchCompute));
+        _glDispatchComputeDelegate(numGroupsX, numGroupsY, numGroupsZ);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glDispatchComputeIndirect(IntPtr indirect)
+    {
+        _glDispatchComputeIndirectDelegate = (delegate* unmanaged<IntPtr, void>)Glfw.Glfw.GetProcAddress(nameof(glDispatchComputeIndirect));
+        _glDispatchComputeIndirectDelegate(indirect);
     }
 }

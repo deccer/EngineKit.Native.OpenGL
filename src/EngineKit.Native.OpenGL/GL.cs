@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 using OpenTK.Mathematics;
 
 // ReSharper disable InconsistentNaming
@@ -17,7 +18,7 @@ public static unsafe partial class GL
         IntPtr message,
         IntPtr userParam);
 
-    public static unsafe string GetString(StringName stringName)
+    public static string GetString(StringName stringName)
     {
         var result = _glGetStringDelegate(stringName);
         return (result == null
@@ -1184,5 +1185,93 @@ public static unsafe partial class GL
     public static void TextureParameter(int texture, TextureParameterName textureParameterName, float value)
     {
         _glTextureParameterfDelegate(texture, textureParameterName, value);
+    }
+
+    public static void BindImageTexture(
+        uint unit,
+        int texture,
+        int level,
+        bool layered,
+        int layer,
+        MemoryAccess access,
+        SizedInternalFormat format)
+    {
+        if (!IsValidImageTextureFormat(format))
+        {
+            throw new InvalidOperationException("Invalid Image Texture format");
+        }
+        _glBindImageTextureDelegate(
+            unit,
+            texture,
+            level,
+            (byte)(layered ? 1 : 0),
+            layer,
+            access,
+            format);
+    }
+
+    public static void BindImageTextures(
+        uint first,
+        int count,
+        params IntPtr[] textureNames)
+    {
+        var reference = (int*)MemoryMarshal.GetArrayDataReference(textureNames);
+        _glBindImageTexturesDelegate(first, count, reference);
+    }
+
+    public static void Dispatch(uint numGroupX, uint numGroupY, uint numGroupZ)
+    {
+        _glDispatchComputeDelegate(numGroupX, numGroupY, numGroupZ);
+    }
+
+    public static void DispatchIndirect(IntPtr indirect)
+    {
+        _glDispatchComputeIndirectDelegate(indirect);
+    }
+
+    private static bool IsValidImageTextureFormat(SizedInternalFormat format)
+    {
+        return format switch
+        {
+            SizedInternalFormat.Rgba8 => true,
+            SizedInternalFormat.Rgba16 => true,
+            SizedInternalFormat.Rgba32f => true,
+            SizedInternalFormat.Rgba16f => true,
+            SizedInternalFormat.R11fG11fB10f => true,
+            SizedInternalFormat.Rgba32ui => true,
+            SizedInternalFormat.Rgba16ui => true,
+            SizedInternalFormat.Rgba8ui => true,
+            SizedInternalFormat.Rgba32i => true,
+            SizedInternalFormat.Rgba16i => true,
+            SizedInternalFormat.Rgba8i => true,
+            SizedInternalFormat.R8 => true,
+            SizedInternalFormat.R16 => true,
+            SizedInternalFormat.Rg8 => true,
+            SizedInternalFormat.Rg16 => true,
+            SizedInternalFormat.R16f => true,
+            SizedInternalFormat.R32f => true,
+            SizedInternalFormat.Rg16f => true,
+            SizedInternalFormat.Rg32f => true,
+            SizedInternalFormat.R8i => true,
+            SizedInternalFormat.R8ui => true,
+            SizedInternalFormat.R16i => true,
+            SizedInternalFormat.R16ui => true,
+            SizedInternalFormat.R32i => true,
+            SizedInternalFormat.R32ui => true,
+            SizedInternalFormat.Rg8i => true,
+            SizedInternalFormat.Rg8ui => true,
+            SizedInternalFormat.Rg16i => true,
+            SizedInternalFormat.Rg16ui => true,
+            SizedInternalFormat.Rg32i => true,
+            SizedInternalFormat.Rg32ui => true,
+            SizedInternalFormat.R8Snorm => true,
+            SizedInternalFormat.Rg8Snorm => true,
+            SizedInternalFormat.Rgba8Snorm => true,
+            SizedInternalFormat.R16Snorm => true,
+            SizedInternalFormat.Rg16Snorm => true,
+            SizedInternalFormat.Rgba16Snorm => true,
+            SizedInternalFormat.Rgb10A2ui => true,
+            _ => false
+        };
     }
 }
