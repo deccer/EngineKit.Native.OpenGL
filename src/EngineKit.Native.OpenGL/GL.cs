@@ -1229,6 +1229,11 @@ public static unsafe partial class GL
         _glDispatchComputeIndirectDelegate(indirect);
     }
 
+    public static void MemoryBarrier(MemoryBarrierMask barrierMask)
+    {
+        _glMemoryBarrierDelegate(barrierMask);
+    }
+
     private static bool IsValidImageTextureFormat(SizedInternalFormat format)
     {
         return format switch
