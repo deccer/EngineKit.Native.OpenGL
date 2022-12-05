@@ -64,12 +64,13 @@ public static unsafe partial class GL
     private static delegate* unmanaged<CullMode, void> _glCullFaceDelegate = &glCullFace;
 
     private static delegate* unmanaged<uint, uint*, void> _glDeleteBuffersDelegate = &glDeleteBuffers;
-    private static delegate* unmanaged<int, int*, void> _glDeleteFramebuffersDelegate = &glDeleteFramebuffers;
+    private static delegate* unmanaged<uint, uint*, void> _glDeleteFramebuffersDelegate = &glDeleteFramebuffers;
     private static delegate* unmanaged<uint, uint*, void> _glDeleteVertexArraysDelegate = &glDeleteVertexArrays;
     private static delegate* unmanaged<uint, void> _glDeleteProgramDelegate = &glDeleteProgram;
-    private static delegate* unmanaged<uint, void> _glDeleteProgramPipelineDelegate = &glDeleteProgramPipeline;
+    private static delegate* unmanaged<uint, uint*, void> _glDeleteProgramPipelineDelegate = &glDeleteProgramPipeline;
     private static delegate* unmanaged<uint, uint*, void> _glDeleteTexturesDelegate = &glDeleteTextures;
     private static delegate* unmanaged<uint, uint*, void> _glDeleteSamplersDelegate = &glDeleteSamplers;
+    private static delegate* unmanaged<uint, uint*, void> _glDeleteQueriesDelegate = &glDeleteQueries;
 
     private static delegate* unmanaged<CompareOperation, void> _glDepthFuncDelegate = &glDepthFunc;
     private static delegate* unmanaged<byte, void> _glDepthMaskDelegate = &glDepthMask;
@@ -232,7 +233,7 @@ public static unsafe partial class GL
 
     private static delegate* unmanaged<uint, uint, int, int, int, int, int, int, int, int, ClearBufferMask,
         BlitFramebufferFilter, void> _glBlitNamedFramebufferDelegate = &glBlitNamedFramebuffer;
-    
+
     private static delegate* unmanaged<MemoryBarrierMask, void> _glMemoryBarrierDelegate = &glMemoryBarrier;
 
     private static delegate* unmanaged<int, TextureParameterName, int, void> _glTextureParameteriDelegate = &glTextureParameteri;
@@ -255,7 +256,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, int, int, byte, int, MemoryAccess, SizedInternalFormat, void>
         _glBindImageTextureDelegate = &glBindImageTexture;
     private static delegate* unmanaged<uint, int, int*, void> _glBindImageTexturesDelegate = &glBindImageTextures;
-    
+
     private static delegate* unmanaged<uint, uint, uint, void> _glDispatchComputeDelegate = &glDispatchCompute;
     private static delegate* unmanaged<IntPtr, void> _glDispatchComputeIndirectDelegate = &glDispatchComputeIndirect;
 
@@ -563,11 +564,11 @@ public static unsafe partial class GL
 
     [UnmanagedCallersOnly]
     private static void glDeleteFramebuffers(
-        int count,
-        int* framebuffers)
+        uint count,
+        uint* framebuffers)
     {
         _glDeleteFramebuffersDelegate =
-            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteFramebuffers));
+            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteFramebuffers));
         _glDeleteFramebuffersDelegate(count, framebuffers);
     }
 
@@ -579,11 +580,11 @@ public static unsafe partial class GL
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteProgramPipeline(uint pipeline)
+    private static void glDeleteProgramPipeline(uint count, uint* pipelines)
     {
         _glDeleteProgramPipelineDelegate =
-            (delegate* unmanaged<uint, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgramPipeline));
-        _glDeleteProgramPipelineDelegate(pipeline);
+            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgramPipeline));
+        _glDeleteProgramPipelineDelegate(count, pipelines);
     }
 
     [UnmanagedCallersOnly]
@@ -597,18 +598,25 @@ public static unsafe partial class GL
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteTextures(uint count, uint* textureIds)
+    private static void glDeleteTextures(uint count, uint* textures)
     {
         _glDeleteTexturesDelegate =
             (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteTextures));
-        _glDeleteTexturesDelegate(count, textureIds);
+        _glDeleteTexturesDelegate(count, textures);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteSamplers(uint count, uint* samplerIds)
+    private static void glDeleteSamplers(uint count, uint* samplers)
     {
         _glDeleteSamplersDelegate = (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteSamplers));
-        _glDeleteSamplersDelegate(count, samplerIds);
+        _glDeleteSamplersDelegate(count, samplers);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glDeleteQueries(uint count, uint* queries)
+    {
+        _glDeleteQueriesDelegate = (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteQueries));
+        _glDeleteQueriesDelegate(count, queries);
     }
 
     [UnmanagedCallersOnly]
@@ -1481,14 +1489,14 @@ public static unsafe partial class GL
         _glGetQueryObjectuivDelegate = (delegate* unmanaged<int, QueryObjectParameterName, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glGetQueryObjectuiv));
         _glGetQueryObjectuivDelegate(id, pname, parameters);
     }
-    
+
     [UnmanagedCallersOnly]
     private static void glMemoryBarrier(MemoryBarrierMask barriers)
     {
         _glMemoryBarrierDelegate = (delegate* unmanaged<MemoryBarrierMask, void>)Glfw.Glfw.GetProcAddress(nameof(glMemoryBarrier));
         _glMemoryBarrierDelegate(barriers);
     }
-    
+
     [UnmanagedCallersOnly]
     private static void glBindImageTexture(
         uint unit,
@@ -1512,7 +1520,7 @@ public static unsafe partial class GL
         _glBindImageTexturesDelegate = (delegate* unmanaged<uint, int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glBindImageTextures));
         _glBindImageTexturesDelegate(first, count, textures);
     }
-    
+
     [UnmanagedCallersOnly]
     private static void glDispatchCompute(uint numGroupsX, uint numGroupsY, uint numGroupsZ)
     {

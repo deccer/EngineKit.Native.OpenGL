@@ -218,7 +218,7 @@ public static unsafe partial class GL
         _glDeleteBuffersDelegate(1, &buffer);
     }
 
-    public static void DeleteFramebuffer(int framebuffer)
+    public static void DeleteFramebuffer(uint framebuffer)
     {
         _glDeleteFramebuffersDelegate(1, &framebuffer);
     }
@@ -235,7 +235,7 @@ public static unsafe partial class GL
 
     public static void DeleteProgramPipeline(uint pipeline)
     {
-        _glDeleteProgramPipelineDelegate(pipeline);
+        _glDeleteProgramPipelineDelegate(1, &pipeline);
     }
 
     public static void DeleteTexture(uint texture)
@@ -246,6 +246,11 @@ public static unsafe partial class GL
     public static void DeleteSampler(uint sampler)
     {
         _glDeleteSamplersDelegate(1, &sampler);
+    }
+
+    public static void DeleteQuery(uint query)
+    {
+        _glDeleteQueriesDelegate(1, &query);
     }
 
     public static void DepthFunc(CompareOperation compareOperation)
@@ -1153,11 +1158,11 @@ public static unsafe partial class GL
             filter);
     }
 
-    public static int CreateQuery(QueryTarget queryTarget)
+    public static uint CreateQuery(QueryTarget queryTarget)
     {
         var query = 0;
         _glCreateQueriesDelegate(queryTarget, 1, &query);
-        return query;
+        return (uint)query;
     }
 
     public static void BeginQuery(QueryTarget queryTarget, int query)
