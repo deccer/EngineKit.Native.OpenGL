@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D8FDD221-308
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineKit.Native.OpenGL", "src\EngineKit.Native.OpenGL\EngineKit.Native.OpenGL.csproj", "{70AB0F2B-40F7-435C-B565-1C00ED8FF833}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AFDA38F1-EDD2-477E-8E5C-105C725CBD41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineKit.Native.OpenGL.Tests", "tests\EngineKit.Native.OpenGL.Tests\EngineKit.Native.OpenGL.Tests.csproj", "{9DFF9B53-503E-4C98-868D-5E80F30DEFF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,11 +24,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{70AB0F2B-40F7-435C-B565-1C00ED8FF833} = {D8FDD221-308F-4FAE-A90A-B5B6C467DB1F}
+		{9DFF9B53-503E-4C98-868D-5E80F30DEFF5} = {AFDA38F1-EDD2-477E-8E5C-105C725CBD41}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AB0F2B-40F7-435C-B565-1C00ED8FF833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFF9B53-503E-4C98-868D-5E80F30DEFF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFF9B53-503E-4C98-868D-5E80F30DEFF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFF9B53-503E-4C98-868D-5E80F30DEFF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFF9B53-503E-4C98-868D-5E80F30DEFF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
