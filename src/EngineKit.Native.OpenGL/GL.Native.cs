@@ -118,13 +118,13 @@ public static unsafe partial class GL
     private static delegate* unmanaged<float, void> _glLineWidthDelegate = &glLineWidth;
     private static delegate* unmanaged<LogicOperation, void> _glLogicOpDelegate = &glLogicOp;
 
-    private static delegate* unmanaged<uint, long, void*, BufferStorageMask, void> _glNamedBufferStorageDelegate =
+    private static delegate* unmanaged<int, long, void*, BufferStorageMask, void> _glNamedBufferStorageDelegate =
         &glNamedBufferStorage;
 
-    private static delegate* unmanaged<uint, uint, void*, BufferUsage, void> _glNamedBufferDataDelegate =
+    private static delegate* unmanaged<int, nint, void*, BufferUsage, void> _glNamedBufferDataDelegate =
         &glNamedBufferData;
 
-    private static delegate* unmanaged<uint, int, long, void*, void> _glNamedBufferSubDataDelegate =
+    private static delegate* unmanaged<int, int, long, void*, void> _glNamedBufferSubDataDelegate =
         &glNamedBufferSubData;
 
     private static delegate* unmanaged<ObjectIdentifier, uint, int, byte*, void>
@@ -859,39 +859,39 @@ public static unsafe partial class GL
 
     [UnmanagedCallersOnly]
     private static void glNamedBufferStorage(
-        uint buffer,
+        int buffer,
         long size,
         void* dataPtr,
         BufferStorageMask bufferStorageMask)
     {
         _glNamedBufferStorageDelegate =
-            (delegate* unmanaged<uint, long, void*, BufferStorageMask, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, long, void*, BufferStorageMask, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glNamedBufferStorage));
         _glNamedBufferStorageDelegate(buffer, size, dataPtr, bufferStorageMask);
     }
 
     [UnmanagedCallersOnly]
     private static void glNamedBufferData(
-        uint buffer,
-        uint size,
+        int buffer,
+        nint size,
         void* dataPtr,
         BufferUsage bufferUsage)
     {
         _glNamedBufferDataDelegate =
-            (delegate* unmanaged<uint, uint, void*, BufferUsage, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, nint, void*, BufferUsage, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glNamedBufferData));
         _glNamedBufferDataDelegate(buffer, size, dataPtr, bufferUsage);
     }
 
     [UnmanagedCallersOnly]
     private static void glNamedBufferSubData(
-        uint buffer,
+        int buffer,
         int offset,
         long size,
         void* dataPtr)
     {
         _glNamedBufferSubDataDelegate =
-            (delegate* unmanaged<uint, int, long, void*, void>)Glfw.Glfw.GetProcAddress(nameof(glNamedBufferSubData));
+            (delegate* unmanaged<int, int, long, void*, void>)Glfw.Glfw.GetProcAddress(nameof(glNamedBufferSubData));
         _glNamedBufferSubDataDelegate(buffer, offset, size, dataPtr);
     }
 

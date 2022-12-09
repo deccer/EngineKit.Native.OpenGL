@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Marshalling;
 using OpenTK.Mathematics;
 
 // ReSharper disable InconsistentNaming
@@ -463,7 +462,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage(
-        uint buffer,
+        int buffer,
         long size,
         IntPtr data,
         BufferStorageMask bufferStorageMask)
@@ -473,7 +472,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage<TData>(
-        uint buffer,
+        int buffer,
         in TData data,
         BufferStorageMask bufferStorageMask)
         where TData : unmanaged
@@ -486,7 +485,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage<TData>(
-        uint buffer,
+        int buffer,
         TData[] data,
         BufferStorageMask bufferStorageMask)
         where TData : unmanaged
@@ -499,7 +498,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData<TData>(
-        uint buffer,
+        int buffer,
         int offset,
         TData[] data)
         where TData : unmanaged
@@ -512,7 +511,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData<TData>(
-        uint buffer,
+        int buffer,
         int offset,
         in TData data)
         where TData : unmanaged
@@ -525,7 +524,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData(
-        uint buffer,
+        int buffer,
         int offset,
         long size,
         IntPtr data)
@@ -533,9 +532,9 @@ public static unsafe partial class GL
         NamedBufferSubData(buffer, offset, size, (void*)data);
     }
 
-    public static unsafe void NamedBufferData(
-        uint buffer,
-        uint size,
+    public static void NamedBufferData(
+        int buffer,
+        nint size,
         IntPtr data,
         BufferUsage usage)
     {
@@ -543,26 +542,26 @@ public static unsafe partial class GL
         NamedBufferData(buffer, size, dataPtr, usage);
     }
 
-    public static unsafe void NamedBufferData<TData>(
-        uint buffer,
+    public static void NamedBufferData<TData>(
+        int buffer,
         Span<TData> data,
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (uint)(data.Length * sizeof(TData));
+        var size = (nint)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
             NamedBufferData(buffer, size, dataPtr, usage);
         }
     }
 
-    public static unsafe void NamedBufferData<TData>(
-        uint buffer,
+    public static void NamedBufferData<TData>(
+        int buffer,
         TData[] data,
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (uint)(data.Length * sizeof(TData));
+        var size = (nint)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
             NamedBufferData(buffer, size, dataPtr, usage);
@@ -570,7 +569,7 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferStorage(
-        uint buffer,
+        int buffer,
         long size,
         void* dataPtr,
         BufferStorageMask bufferStorageMask)
@@ -579,8 +578,8 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferData(
-        uint buffer,
-        uint size,
+        int buffer,
+        nint size,
         void* dataPtr,
         BufferUsage bufferUsage)
     {
@@ -588,7 +587,7 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferSubData(
-        uint buffer,
+        int buffer,
         int offset,
         long size,
         void* dataPtr)
