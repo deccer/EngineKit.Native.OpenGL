@@ -94,12 +94,12 @@ public static unsafe partial class GL
         _glClearDepthfDelegate(depth);
     }
 
-    public static void ClearNamedFramebuffer(uint framebuffer, Buffer buffer, int drawBuffer, float depth, int stencil)
+    public static void ClearNamedFramebuffer(int framebuffer, Buffer buffer, int drawBuffer, float depth, int stencil)
     {
         _glClearNamedFramebufferfiDelegate(framebuffer, buffer, drawBuffer, depth, stencil);
     }
 
-    public static void ClearNamedFramebuffer(uint framebuffer, Buffer buffer, int drawBuffer, in float value)
+    public static void ClearNamedFramebuffer(int framebuffer, Buffer buffer, int drawBuffer, in float value)
     {
         fixed (float* valuePtr = &value)
         {
@@ -107,7 +107,7 @@ public static unsafe partial class GL
         }
     }
 
-    public static void ClearNamedFramebuffer(uint framebuffer, Buffer buffer, int drawBuffer, in int value)
+    public static void ClearNamedFramebuffer(int framebuffer, Buffer buffer, int drawBuffer, in int value)
     {
         fixed (int* valuePtr = &value)
         {
@@ -115,7 +115,7 @@ public static unsafe partial class GL
         }
     }
 
-    public static void ClearNamedFramebuffer(uint framebuffer, Buffer buffer, int drawBuffer, in uint value)
+    public static void ClearNamedFramebuffer(int framebuffer, Buffer buffer, int drawBuffer, in uint value)
     {
         fixed (uint* valuePtr = &value)
         {
@@ -165,21 +165,21 @@ public static unsafe partial class GL
             alphaChannel);
     }
 
-    public static uint CreateBuffer()
+    public static int CreateBuffer()
     {
-        uint buffer;
+        int buffer;
         _glCreateBuffersDelegate(1, &buffer);
         return buffer;
     }
 
-    public static uint CreateFramebuffer()
+    public static int CreateFramebuffer()
     {
-        uint framebuffer;
+        int framebuffer;
         _glCreateFramebuffersDelegate(1, &framebuffer);
         return framebuffer;
     }
 
-    public static uint CreateShaderProgram(ShaderType shaderType, string shaderSource)
+    public static int CreateShaderProgram(ShaderType shaderType, string shaderSource)
     {
         var shaderSourcePtr = Marshal.StringToCoTaskMemAnsi(shaderSource);
         var programId = _glCreateShaderProgramvDelegate(shaderType, 1, (byte**)&shaderSourcePtr);
@@ -187,23 +187,23 @@ public static unsafe partial class GL
         return programId;
     }
 
-    public static uint CreateProgramPipeline()
+    public static int CreateProgramPipeline()
     {
-        uint programPipelineId;
+        int programPipelineId;
         _glCreateProgramPipelinesDelegate(1, &programPipelineId);
         return programPipelineId;
     }
 
-    public static uint CreateVertexArray()
+    public static int CreateVertexArray()
     {
-        uint vertexArray;
+        int vertexArray;
         _glCreateVertexArraysDelegate(1, &vertexArray);
         return vertexArray;
     }
 
-    public static uint CreateTexture(TextureTarget target)
+    public static int CreateTexture(TextureTarget target)
     {
-        uint texture;
+        int texture;
         _glCreateTexturesDelegate(target, 1, &texture);
         return texture;
     }
@@ -213,42 +213,42 @@ public static unsafe partial class GL
         _glCullFaceDelegate(cullMode);
     }
 
-    public static void DeleteBuffer(uint buffer)
+    public static void DeleteBuffer(int buffer)
     {
         _glDeleteBuffersDelegate(1, &buffer);
     }
 
-    public static void DeleteFramebuffer(uint framebuffer)
+    public static void DeleteFramebuffer(int framebuffer)
     {
         _glDeleteFramebuffersDelegate(1, &framebuffer);
     }
 
-    public static void DeleteVertexArray(uint vertexArray)
+    public static void DeleteVertexArray(int vertexArray)
     {
         _glDeleteVertexArraysDelegate(1, &vertexArray);
     }
 
-    public static void DeleteProgram(uint shader)
+    public static void DeleteProgram(int shader)
     {
         _glDeleteProgramDelegate(shader);
     }
 
-    public static void DeleteProgramPipeline(uint pipeline)
+    public static void DeleteProgramPipeline(int pipeline)
     {
-        _glDeleteProgramPipelineDelegate(1, &pipeline);
+        _glDeleteProgramPipelinesDelegate(1, &pipeline);
     }
 
-    public static void DeleteTexture(uint texture)
+    public static void DeleteTexture(int texture)
     {
         _glDeleteTexturesDelegate(1, &texture);
     }
 
-    public static void DeleteSampler(uint sampler)
+    public static void DeleteSampler(int sampler)
     {
         _glDeleteSamplersDelegate(1, &sampler);
     }
 
-    public static void DeleteQuery(uint query)
+    public static void DeleteQuery(int query)
     {
         _glDeleteQueriesDelegate(1, &query);
     }
@@ -1057,9 +1057,9 @@ public static unsafe partial class GL
             depth);
     }
 
-    public static uint CreateSampler()
+    public static int CreateSampler()
     {
-        uint sampler;
+        int sampler;
         _glCreateSamplersDelegate(1, &sampler);
         return sampler;
     }
@@ -1158,11 +1158,11 @@ public static unsafe partial class GL
             filter);
     }
 
-    public static uint CreateQuery(QueryTarget queryTarget)
+    public static int CreateQuery(QueryTarget queryTarget)
     {
         var query = 0;
         _glCreateQueriesDelegate(queryTarget, 1, &query);
-        return (uint)query;
+        return query;
     }
 
     public static void BeginQuery(QueryTarget queryTarget, int query)

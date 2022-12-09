@@ -36,41 +36,41 @@ public static unsafe partial class GL
     private static delegate* unmanaged<float, void> _glClearDepthfDelegate = &glClearDepthf;
     private static delegate* unmanaged<int, void> _glClearStencilDelegate = &glClearStencil;
 
-    private static delegate* unmanaged<uint, Buffer, int, float, int, void> _glClearNamedFramebufferfiDelegate =
+    private static delegate* unmanaged<int, Buffer, int, float, int, void> _glClearNamedFramebufferfiDelegate =
         &glClearNamedFramebufferfi;
 
-    private static delegate* unmanaged<uint, Buffer, int, float*, void> _glClearNamedFramebufferfvDelegate =
+    private static delegate* unmanaged<int, Buffer, int, float*, void> _glClearNamedFramebufferfvDelegate =
         &glClearNamedFramebufferfv;
 
-    private static delegate* unmanaged<uint, Buffer, int, int*, void> _glClearNamedFramebufferivDelegate =
+    private static delegate* unmanaged<int, Buffer, int, int*, void> _glClearNamedFramebufferivDelegate =
         &glClearNamedFramebufferiv;
 
-    private static delegate* unmanaged<uint, Buffer, int, uint*, void> _glClearNamedFramebufferuivDelegate =
+    private static delegate* unmanaged<int, Buffer, int, uint*, void> _glClearNamedFramebufferuivDelegate =
         &glClearNamedFramebufferuiv;
 
     private static delegate* unmanaged<byte, byte, byte, byte, void> _glColorMaskDelegate = &glColorMask;
     private static delegate* unmanaged<uint, byte, byte, byte, byte, void> _glColorMaskiDelegate = &glColorMaski;
 
-    private static delegate* unmanaged<uint, uint*, void> _glCreateBuffersDelegate = &glCreateBuffers;
-    private static delegate* unmanaged<uint, uint*, void> _glCreateFramebuffersDelegate = &glCreateFramebuffers;
+    private static delegate* unmanaged<int, int*, void> _glCreateBuffersDelegate = &glCreateBuffers;
+    private static delegate* unmanaged<int, int*, void> _glCreateFramebuffersDelegate = &glCreateFramebuffers;
 
-    private static delegate* unmanaged<ShaderType, uint, byte**, uint> _glCreateShaderProgramvDelegate =
+    private static delegate* unmanaged<ShaderType, int, byte**, int> _glCreateShaderProgramvDelegate =
         &glCreateShaderProgramv;
 
-    private static delegate* unmanaged<uint, uint*, void> _glCreateProgramPipelinesDelegate = &glCreateProgramPipelines;
-    private static delegate* unmanaged<uint, uint*, void> _glCreateVertexArraysDelegate = &glCreateVertexArrays;
-    private static delegate* unmanaged<TextureTarget, uint, uint*, void> _glCreateTexturesDelegate = &glCreateTextures;
+    private static delegate* unmanaged<int, int*, void> _glCreateProgramPipelinesDelegate = &glCreateProgramPipelines;
+    private static delegate* unmanaged<int, int*, void> _glCreateVertexArraysDelegate = &glCreateVertexArrays;
+    private static delegate* unmanaged<TextureTarget, int, int*, void> _glCreateTexturesDelegate = &glCreateTextures;
 
     private static delegate* unmanaged<CullMode, void> _glCullFaceDelegate = &glCullFace;
 
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteBuffersDelegate = &glDeleteBuffers;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteFramebuffersDelegate = &glDeleteFramebuffers;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteVertexArraysDelegate = &glDeleteVertexArrays;
-    private static delegate* unmanaged<uint, void> _glDeleteProgramDelegate = &glDeleteProgram;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteProgramPipelineDelegate = &glDeleteProgramPipeline;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteTexturesDelegate = &glDeleteTextures;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteSamplersDelegate = &glDeleteSamplers;
-    private static delegate* unmanaged<uint, uint*, void> _glDeleteQueriesDelegate = &glDeleteQueries;
+    private static delegate* unmanaged<int, int*, void> _glDeleteBuffersDelegate = &glDeleteBuffers;
+    private static delegate* unmanaged<int, int*, void> _glDeleteFramebuffersDelegate = &glDeleteFramebuffers;
+    private static delegate* unmanaged<int, int*, void> _glDeleteVertexArraysDelegate = &glDeleteVertexArrays;
+    private static delegate* unmanaged<int, void> _glDeleteProgramDelegate = &glDeleteProgram;
+    private static delegate* unmanaged<int, int*, void> _glDeleteProgramPipelinesDelegate = &glDeleteProgramPipelines;
+    private static delegate* unmanaged<int, int*, void> _glDeleteTexturesDelegate = &glDeleteTextures;
+    private static delegate* unmanaged<int, int*, void> _glDeleteSamplersDelegate = &glDeleteSamplers;
+    private static delegate* unmanaged<int, int*, void> _glDeleteQueriesDelegate = &glDeleteQueries;
 
     private static delegate* unmanaged<CompareOperation, void> _glDepthFuncDelegate = &glDepthFunc;
     private static delegate* unmanaged<byte, void> _glDepthMaskDelegate = &glDepthMask;
@@ -215,7 +215,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, uint, SizedInternalFormat, int, int, int, void>
         _glTextureStorage3DDelegate = &glTextureStorage3D;
 
-    private static delegate* unmanaged<int, uint*, void> _glCreateSamplersDelegate = &glCreateSamplers;
+    private static delegate* unmanaged<int, int*, void> _glCreateSamplersDelegate = &glCreateSamplers;
 
     private static delegate* unmanaged<uint, SamplerParameterI, int, void> _glSamplerParameteriDelegate =
         &glSamplerParameteri;
@@ -410,53 +410,53 @@ public static unsafe partial class GL
 
     [UnmanagedCallersOnly]
     private static void glClearNamedFramebufferfi(
-        uint framebuffer,
+        int framebuffer,
         Buffer buffer,
         int index,
         float clearDepth,
         int clearStencil)
     {
         _glClearNamedFramebufferfiDelegate =
-            (delegate* unmanaged<uint, Buffer, int, float, int, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, Buffer, int, float, int, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glClearNamedFramebufferfv));
         _glClearNamedFramebufferfiDelegate(framebuffer, buffer, index, clearDepth, clearStencil);
     }
 
     [UnmanagedCallersOnly]
     private static void glClearNamedFramebufferfv(
-        uint framebuffer,
+        int framebuffer,
         Buffer buffer,
         int index,
         float* clearColor)
     {
         _glClearNamedFramebufferfvDelegate =
-            (delegate* unmanaged<uint, Buffer, int, float*, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, Buffer, int, float*, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glClearNamedFramebufferfv));
         _glClearNamedFramebufferfvDelegate(framebuffer, buffer, index, clearColor);
     }
 
     [UnmanagedCallersOnly]
     private static void glClearNamedFramebufferiv(
-        uint framebuffer,
+        int framebuffer,
         Buffer buffer,
         int index,
         int* clearColor)
     {
         _glClearNamedFramebufferivDelegate =
-            (delegate* unmanaged<uint, Buffer, int, int*, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, Buffer, int, int*, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glClearNamedFramebufferiv));
         _glClearNamedFramebufferivDelegate(framebuffer, buffer, index, clearColor);
     }
 
     [UnmanagedCallersOnly]
     private static void glClearNamedFramebufferuiv(
-        uint framebuffer,
+        int framebuffer,
         Buffer buffer,
         int index,
         uint* clearColor)
     {
         _glClearNamedFramebufferuivDelegate =
-            (delegate* unmanaged<uint, Buffer, int, uint*, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<int, Buffer, int, uint*, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glClearNamedFramebufferuiv));
         _glClearNamedFramebufferuivDelegate(framebuffer, buffer, index, clearColor);
     }
@@ -495,53 +495,53 @@ public static unsafe partial class GL
 
     [UnmanagedCallersOnly]
     private static void glCreateBuffers(
-        uint count,
-        uint* buffers)
+        int count,
+        int* buffers)
     {
         _glCreateBuffersDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateBuffers));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateBuffers));
         _glCreateBuffersDelegate(count, buffers);
     }
 
     [UnmanagedCallersOnly]
     private static void glCreateFramebuffers(
-        uint count,
-        uint* framebuffers)
+        int count,
+        int* framebuffers)
     {
         _glCreateFramebuffersDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateFramebuffers));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateFramebuffers));
         _glCreateFramebuffersDelegate(count, framebuffers);
     }
 
     [UnmanagedCallersOnly]
-    private static uint glCreateShaderProgramv(
+    private static int glCreateShaderProgramv(
         ShaderType shaderType,
-        uint shaderCount,
+        int shaderCount,
         byte** shaderSource)
     {
         _glCreateShaderProgramvDelegate =
-            (delegate* unmanaged<ShaderType, uint, byte**, uint>)Glfw.Glfw.GetProcAddress("glCreateShaderProgramv");
+            (delegate* unmanaged<ShaderType, int, byte**, int>)Glfw.Glfw.GetProcAddress("glCreateShaderProgramv");
         var program = _glCreateShaderProgramvDelegate(shaderType, shaderCount, shaderSource);
         return program;
     }
 
     [UnmanagedCallersOnly]
     private static void glCreateProgramPipelines(
-        uint count,
-        uint* pipelineIds)
+        int count,
+        int* pipelineIds)
     {
         _glCreateProgramPipelinesDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateProgramPipelines));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateProgramPipelines));
         _glCreateProgramPipelinesDelegate(count, pipelineIds);
     }
 
     [UnmanagedCallersOnly]
     private static void glCreateVertexArrays(
-        uint count,
-        uint* vertexArrays)
+        int count,
+        int* vertexArrays)
     {
         _glCreateVertexArraysDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateVertexArrays));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateVertexArrays));
         _glCreateVertexArraysDelegate(count, vertexArrays);
     }
 
@@ -554,79 +554,79 @@ public static unsafe partial class GL
 
     [UnmanagedCallersOnly]
     private static void glDeleteBuffers(
-        uint count,
-        uint* buffers)
+        int count,
+        int* buffers)
     {
         _glDeleteBuffersDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteBuffers));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteBuffers));
         _glDeleteBuffersDelegate(count, buffers);
     }
 
     [UnmanagedCallersOnly]
     private static void glDeleteFramebuffers(
-        uint count,
-        uint* framebuffers)
+        int count,
+        int* framebuffers)
     {
         _glDeleteFramebuffersDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteFramebuffers));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteFramebuffers));
         _glDeleteFramebuffersDelegate(count, framebuffers);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteProgram(uint program)
+    private static void glDeleteProgram(int program)
     {
-        _glDeleteProgramDelegate = (delegate* unmanaged<uint, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgram));
+        _glDeleteProgramDelegate = (delegate* unmanaged<int, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgram));
         _glDeleteProgramDelegate(program);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteProgramPipeline(uint count, uint* pipelines)
+    private static void glDeleteProgramPipelines(int count, int* pipelines)
     {
-        _glDeleteProgramPipelineDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgramPipeline));
-        _glDeleteProgramPipelineDelegate(count, pipelines);
+        _glDeleteProgramPipelinesDelegate =
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteProgramPipelines));
+        _glDeleteProgramPipelinesDelegate(count, pipelines);
     }
 
     [UnmanagedCallersOnly]
     private static void glDeleteVertexArrays(
-        uint count,
-        uint* vertexArrays)
+        int count,
+        int* vertexArrays)
     {
         _glDeleteVertexArraysDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteVertexArrays));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteVertexArrays));
         _glDeleteVertexArraysDelegate(count, vertexArrays);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteTextures(uint count, uint* textures)
+    private static void glDeleteTextures(int count, int* textures)
     {
         _glDeleteTexturesDelegate =
-            (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteTextures));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteTextures));
         _glDeleteTexturesDelegate(count, textures);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteSamplers(uint count, uint* samplers)
+    private static void glDeleteSamplers(int count, int* samplers)
     {
-        _glDeleteSamplersDelegate = (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteSamplers));
+        _glDeleteSamplersDelegate = (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteSamplers));
         _glDeleteSamplersDelegate(count, samplers);
     }
 
     [UnmanagedCallersOnly]
-    private static void glDeleteQueries(uint count, uint* queries)
+    private static void glDeleteQueries(int count, int* queries)
     {
-        _glDeleteQueriesDelegate = (delegate* unmanaged<uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteQueries));
+        _glDeleteQueriesDelegate = (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glDeleteQueries));
         _glDeleteQueriesDelegate(count, queries);
     }
 
     [UnmanagedCallersOnly]
     private static void glCreateTextures(
         TextureTarget textureTarget,
-        uint count,
-        uint* textureIds)
+        int count,
+        int* textureIds)
     {
         _glCreateTexturesDelegate =
-            (delegate* unmanaged<TextureTarget, uint, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateTextures));
+            (delegate* unmanaged<TextureTarget, int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateTextures));
         _glCreateTexturesDelegate(textureTarget, 1, textureIds);
     }
 
@@ -1353,10 +1353,10 @@ public static unsafe partial class GL
     [UnmanagedCallersOnly]
     private static void glCreateSamplers(
         int count,
-        uint* samplers)
+        int* samplers)
     {
         _glCreateSamplersDelegate =
-            (delegate* unmanaged<int, uint*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateSamplers));
+            (delegate* unmanaged<int, int*, void>)Glfw.Glfw.GetProcAddress(nameof(glCreateSamplers));
         _glCreateSamplersDelegate(count, samplers);
     }
 
