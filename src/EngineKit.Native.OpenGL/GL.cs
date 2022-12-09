@@ -181,9 +181,9 @@ public static unsafe partial class GL
 
     public static uint CreateShaderProgram(ShaderType shaderType, string shaderSource)
     {
-        var shaderSourcePtr = Marshal.StringToHGlobalAnsi(shaderSource);
+        var shaderSourcePtr = Marshal.StringToCoTaskMemAnsi(shaderSource);
         var programId = _glCreateShaderProgramvDelegate(shaderType, 1, (byte**)&shaderSourcePtr);
-        Marshal.FreeHGlobal(shaderSourcePtr);
+        Marshal.FreeCoTaskMem(shaderSourcePtr);
         return programId;
     }
 
@@ -601,9 +601,9 @@ public static unsafe partial class GL
         var labelLength = label.Length;
         if (labelLength > 0)
         {
-            var labelPtr = Marshal.StringToHGlobalAnsi(label);
+            var labelPtr = Marshal.StringToCoTaskMemAnsi(label);
             _glObjectLabelDelegate(identifier, name, labelLength, (byte*)labelPtr);
-            Marshal.FreeHGlobal(labelPtr);
+            Marshal.FreeCoTaskMem(labelPtr);
         }
     }
 
