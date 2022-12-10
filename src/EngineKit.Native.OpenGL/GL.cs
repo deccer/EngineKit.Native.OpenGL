@@ -462,7 +462,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage(
-        int buffer,
+        uint buffer,
         long size,
         IntPtr data,
         BufferStorageMask bufferStorageMask)
@@ -472,7 +472,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage<TData>(
-        int buffer,
+        uint buffer,
         in TData data,
         BufferStorageMask bufferStorageMask)
         where TData : unmanaged
@@ -485,7 +485,7 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferStorage<TData>(
-        int buffer,
+        uint buffer,
         TData[] data,
         BufferStorageMask bufferStorageMask)
         where TData : unmanaged
@@ -498,8 +498,8 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData<TData>(
-        int buffer,
-        int offset,
+        uint buffer,
+        long offset,
         TData[] data)
         where TData : unmanaged
     {
@@ -511,8 +511,8 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData<TData>(
-        int buffer,
-        int offset,
+        uint buffer,
+        long offset,
         in TData data)
         where TData : unmanaged
     {
@@ -524,8 +524,8 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferSubData(
-        int buffer,
-        int offset,
+        uint buffer,
+        long offset,
         long size,
         IntPtr data)
     {
@@ -533,8 +533,8 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferData(
-        int buffer,
-        nint size,
+        uint buffer,
+        long size,
         IntPtr data,
         BufferUsage usage)
     {
@@ -543,12 +543,12 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferData<TData>(
-        int buffer,
+        uint buffer,
         Span<TData> data,
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (nint)(data.Length * sizeof(TData));
+        var size = (long)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
             NamedBufferData(buffer, size, dataPtr, usage);
@@ -556,12 +556,12 @@ public static unsafe partial class GL
     }
 
     public static void NamedBufferData<TData>(
-        int buffer,
+        uint buffer,
         TData[] data,
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (nint)(data.Length * sizeof(TData));
+        var size = (long)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
             NamedBufferData(buffer, size, dataPtr, usage);
@@ -569,7 +569,7 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferStorage(
-        int buffer,
+        uint buffer,
         long size,
         void* dataPtr,
         BufferStorageMask bufferStorageMask)
@@ -578,8 +578,8 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferData(
-        int buffer,
-        nint size,
+        uint buffer,
+        long size,
         void* dataPtr,
         BufferUsage bufferUsage)
     {
@@ -587,8 +587,8 @@ public static unsafe partial class GL
     }
 
     private static void NamedBufferSubData(
-        int buffer,
-        int offset,
+        uint buffer,
+        long offset,
         long size,
         void* dataPtr)
     {
