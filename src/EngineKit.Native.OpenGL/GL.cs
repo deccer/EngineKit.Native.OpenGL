@@ -234,7 +234,7 @@ public static unsafe partial class GL
 
     public static void DeleteProgramPipeline(uint pipeline)
     {
-        _glDeleteProgramPipelineDelegate(1, &pipeline);
+        _glDeleteProgramPipelinesDelegate(1, &pipeline);
     }
 
     public static void DeleteTexture(uint texture)
@@ -386,7 +386,7 @@ public static unsafe partial class GL
             return;
         }
 
-        var messagePtr = Marshal.StringToCoTaskMemUTF8(message);
+        var messagePtr = Marshal.StringToCoTaskMemAnsi(message);
         _glPushDebugGroupDelegate(DebugSource.Application, 0, message.Length, (byte*)messagePtr);
         Marshal.FreeCoTaskMem(messagePtr);
     }
