@@ -14,15 +14,119 @@ public static unsafe partial class GL
         uint id,
         DebugSeverity severity,
         int length,
-        IntPtr message,
-        IntPtr userParam);
+        nint message,
+        nint userParam);
 
     public static string GetString(StringName stringName)
     {
         var result = _glGetStringDelegate(stringName);
         return (result == null
             ? string.Empty
-            : Marshal.PtrToStringAnsi((IntPtr)result)) ?? string.Empty;
+            : Marshal.PtrToStringAnsi((nint)result)) ?? string.Empty;
+    }
+
+    /*
+
+    private static delegate* unmanaged<uint, byte*, void> _glGetBooleanvDelegate = &glGetBooleanv;
+    private static delegate* unmanaged<uint, double*, void> _glGetDoublevDelegate = &glGetDoublev;
+    private static delegate* unmanaged<uint, float*, void> _glGetFloatvDelegate = &glGetFloatv;
+    private static delegate* unmanaged<uint, int*, void> _glGetIntegervDelegate = &glGetIntegerv;
+    private static delegate* unmanaged<uint, long*, void> _glGetInteger64vDelegate = &glGetInteger64v;
+
+
+    private static delegate* unmanaged<uint, uint, byte*, void> _glGetBooleanivDelegate = &glGetBooleaniv;
+    private static delegate* unmanaged<uint, uint, double*, void> _glGetDoubleivDelegate = &glGetDoubleiv;
+    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativDelegate = &glGetFloativ;
+    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativNvDelegate = &glGetFloativNv;
+    private static delegate* unmanaged<uint, uint, int*, void> _glGetIntegerivDelegate = &glGetIntegeriv;
+
+    private static delegate* unmanaged<uint, uint, long*, void> _glGetInteger64ivDelegate = &glGetInteger64iv;
+    private static delegate* unmanaged<uint, uint, ulong*, void> _glGetIntegerui64ivNvDelegate = &glGetIntegerui64ivNv;
+    private static delegate* unmanaged<uint, ulong*, void> _glGetIntegerui64vNvDelegate = &glGetIntegerui64vNv;
+    */
+
+    public static bool GetBoolean(uint parameter)
+    {
+        byte value;
+        _glGetBooleanvDelegate(parameter, &value);
+        return value == 1;
+    }
+
+    public static bool GetBoolean(uint parameter, uint index)
+    {
+        byte value;
+        _glGetBooleanivDelegate(parameter, index, &value);
+        return value == 1;
+    }
+
+    public static int GetInteger(uint parameter)
+    {
+        int value;
+        _glGetIntegervDelegate(parameter, &value);
+        return value;
+    }
+
+    public static long GetLong(uint parameter)
+    {
+        long value;
+        _glGetInteger64vDelegate(parameter, &value);
+        return value;
+    }
+
+    public static long GetLong(uint parameter, uint index)
+    {
+        long value;
+        _glGetInteger64ivDelegate(parameter, index, &value);
+        return value;
+    }
+
+    public static ulong GetUnsignedLong(uint parameter)
+    {
+        ulong value;
+        _glGetIntegerui64vNvDelegate(parameter, &value);
+        return value;
+    }
+
+    public static ulong GetUnsignedLong(uint parameter, uint index)
+    {
+        ulong value;
+        _glGetIntegerui64ivNvDelegate(parameter, index, &value);
+        return value;
+    }
+
+    public static int GetInteger(uint parameter, uint index)
+    {
+        int value;
+        _glGetIntegerivDelegate(parameter, index, &value);
+        return value;
+    }
+
+    public static float GetFloat(uint parameter)
+    {
+        float value;
+        _glGetFloatvDelegate(parameter, &value);
+        return value;
+    }
+
+    public static float GetFloat(uint parameter, uint index)
+    {
+        float value;
+        _glGetFloativDelegate(parameter, index, &value);
+        return value;
+    }
+
+    public static double GetDouble(uint parameter)
+    {
+        double value;
+        _glGetDoublevDelegate(parameter, &value);
+        return value;
+    }
+
+    public static double GetDouble(uint parameter, uint index)
+    {
+        double value;
+        _glGetDoubleivDelegate(parameter, index, &value);
+        return value;
     }
 
     public static void BindFramebuffer(FramebufferTarget framebufferTarget, uint framebuffer)
@@ -497,9 +601,18 @@ public static unsafe partial class GL
         }
     }
 
+    private static void NamedBufferStorage(
+        uint buffer,
+        long size,
+        void* dataPtr,
+        BufferStorageMask bufferStorageMask)
+    {
+        _glNamedBufferStorageDelegate(buffer, size, dataPtr, bufferStorageMask);
+    }
+
     public static void NamedBufferSubData<TData>(
         uint buffer,
-        long offset,
+        nint offset,
         TData[] data)
         where TData : unmanaged
     {
@@ -512,7 +625,7 @@ public static unsafe partial class GL
 
     public static void NamedBufferSubData<TData>(
         uint buffer,
-        long offset,
+        nint offset,
         in TData data)
         where TData : unmanaged
     {
@@ -525,21 +638,21 @@ public static unsafe partial class GL
 
     public static void NamedBufferSubData(
         uint buffer,
-        long offset,
+        nint offset,
         long size,
-        IntPtr data)
+        void* data)
     {
-        NamedBufferSubData(buffer, offset, size, (void*)data);
+        _glNamedBufferSubDataDelegate(buffer, offset, size, (void*)data);
     }
 
     public static void NamedBufferData(
         uint buffer,
-        long size,
+        nint size,
         IntPtr data,
         BufferUsage usage)
     {
         var dataPtr = (void*)data;
-        NamedBufferData(buffer, size, dataPtr, usage);
+        NamedBufferDataInternal(buffer, size, dataPtr, usage);
     }
 
     public static void NamedBufferData<TData>(
@@ -548,10 +661,10 @@ public static unsafe partial class GL
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (long)(data.Length * sizeof(TData));
+        var size = (nint)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
-            NamedBufferData(buffer, size, dataPtr, usage);
+            NamedBufferDataInternal(buffer, size, dataPtr, usage);
         }
     }
 
@@ -561,38 +674,32 @@ public static unsafe partial class GL
         BufferUsage usage)
         where TData : unmanaged
     {
-        var size = (long)(data.Length * sizeof(TData));
+        var size = (nint)(data.Length * sizeof(TData));
         fixed (void* dataPtr = data)
         {
-            NamedBufferData(buffer, size, dataPtr, usage);
+            NamedBufferDataInternal(buffer, size, dataPtr, usage);
         }
     }
 
-    private static void NamedBufferStorage(
+    public static void NamedBufferData<TData>(
         uint buffer,
-        long size,
-        void* dataPtr,
-        BufferStorageMask bufferStorageMask)
+        in TData data,
+        BufferUsage usage)
+        where TData : unmanaged
     {
-        _glNamedBufferStorageDelegate(buffer, size, dataPtr, bufferStorageMask);
+        fixed (void* dataPtr = &data)
+        {
+            NamedBufferDataInternal(buffer, sizeof(TData), dataPtr, usage);
+        }
     }
 
-    private static void NamedBufferData(
+    private static void NamedBufferDataInternal(
         uint buffer,
-        long size,
+        nint size,
         void* dataPtr,
         BufferUsage bufferUsage)
     {
         _glNamedBufferDataDelegate(buffer, size, dataPtr, bufferUsage);
-    }
-
-    private static void NamedBufferSubData(
-        uint buffer,
-        long offset,
-        long size,
-        void* dataPtr)
-    {
-        _glNamedBufferSubDataDelegate(buffer, offset, size, dataPtr);
     }
 
     public static void ObjectLabel(ObjectIdentifier identifier, uint name, string label)

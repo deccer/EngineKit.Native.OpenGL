@@ -121,7 +121,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, long, void*, BufferStorageMask, void> _glNamedBufferStorageDelegate =
         &glNamedBufferStorage;
 
-    private static delegate* unmanaged<uint, long, void*, BufferUsage, void> _glNamedBufferDataDelegate =
+    private static delegate* unmanaged<uint, nint, void*, BufferUsage, void> _glNamedBufferDataDelegate =
         &glNamedBufferData;
 
     private static delegate* unmanaged<uint, long, long, void*, void> _glNamedBufferSubDataDelegate =
@@ -238,6 +238,41 @@ public static unsafe partial class GL
 
     private static delegate* unmanaged<int, TextureParameterName, int, void> _glTextureParameteriDelegate = &glTextureParameteri;
     private static delegate* unmanaged<int, TextureParameterName, float, void> _glTextureParameterfDelegate = &glTextureParameterf;
+
+    private static delegate* unmanaged<uint, uint, long*, void> _glGetInteger64ivDelegate = &glGetInteger64iv;
+    private static delegate* unmanaged<uint, long*, void> _glGetInteger64vDelegate = &glGetInteger64v;
+    private static delegate* unmanaged<uint, uint, int*, void> _glGetIntegerivDelegate = &glGetIntegeriv;
+    private static delegate* unmanaged<uint, uint, ulong*, void> _glGetIntegerui64ivNvDelegate = &glGetIntegerui64ivNv;
+    private static delegate* unmanaged<uint, ulong*, void> _glGetIntegerui64vNvDelegate = &glGetIntegerui64vNv;
+    private static delegate* unmanaged<uint, int*, void> _glGetIntegervDelegate = &glGetIntegerv;
+    private static delegate* unmanaged<uint, double*, void> _glGetDoublevDelegate = &glGetDoublev;
+    private static delegate* unmanaged<uint, uint, double*, void> _glGetDoubleivDelegate = &glGetDoubleiv;
+    private static delegate* unmanaged<uint, uint, byte*, void> _glGetBooleanivDelegate = &glGetBooleaniv;
+    private static delegate* unmanaged<uint, byte*, void> _glGetBooleanvDelegate = &glGetBooleanv;
+    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativDelegate = &glGetFloativ;
+    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativNvDelegate = &glGetFloativNv;
+    private static delegate* unmanaged<uint, float*, void> _glGetFloatvDelegate = &glGetFloatv;
+
+    [UnmanagedCallersOnly]
+    private static void glGetFloativ(uint target, uint index, float* data)
+    {
+        _glGetFloativDelegate = (delegate* unmanaged<uint, uint, float*, void>)Glfw.Glfw.GetProcAddress("glGetFloati_v");
+        _glGetFloativDelegate(target, index, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetFloativNv(uint target, uint index, float* data)
+    {
+        _glGetFloativNvDelegate = (delegate* unmanaged<uint, uint, float*, void>)Glfw.Glfw.GetProcAddress("glGetFloati_vNV");
+        _glGetFloativNvDelegate(target, index, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetFloatv(uint pname, float* data)
+    {
+        _glGetFloatvDelegate = (delegate* unmanaged<uint, float*, void>)Glfw.Glfw.GetProcAddress("glGetFloatv");
+        _glGetFloatvDelegate(pname, data);
+    }
 
     [UnmanagedCallersOnly]
     private static void glTextureParameteri(int texture, TextureParameterName textureParameterName, int param)
@@ -873,12 +908,12 @@ public static unsafe partial class GL
     [UnmanagedCallersOnly]
     private static void glNamedBufferData(
         uint buffer,
-        long size,
+        nint size,
         void* dataPtr,
         BufferUsage bufferUsage)
     {
         _glNamedBufferDataDelegate =
-            (delegate* unmanaged<uint, long, void*, BufferUsage, void>)Glfw.Glfw.GetProcAddress(
+            (delegate* unmanaged<uint, nint, void*, BufferUsage, void>)Glfw.Glfw.GetProcAddress(
                 nameof(glNamedBufferData));
         _glNamedBufferDataDelegate(buffer, size, dataPtr, bufferUsage);
     }
@@ -1533,5 +1568,77 @@ public static unsafe partial class GL
     {
         _glDispatchComputeIndirectDelegate = (delegate* unmanaged<IntPtr, void>)Glfw.Glfw.GetProcAddress(nameof(glDispatchComputeIndirect));
         _glDispatchComputeIndirectDelegate(indirect);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetInteger64iv(uint target, uint index, long* data)
+    {
+        _glGetInteger64ivDelegate = (delegate* unmanaged<uint, uint, long*, void>)Glfw.Glfw.GetProcAddress("glGetInteger64i_v");
+        _glGetInteger64ivDelegate(target, index, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetInteger64v(uint pname, long* data)
+    {
+        _glGetInteger64vDelegate = (delegate* unmanaged<uint, long*, void>)Glfw.Glfw.GetProcAddress("glGetInteger64v");
+        _glGetInteger64vDelegate(pname, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetIntegeriv(uint target, uint index, int* data)
+    {
+        _glGetIntegerivDelegate = (delegate* unmanaged<uint, uint, int*, void>)Glfw.Glfw.GetProcAddress("glGetIntegeri_v");
+        _glGetIntegerivDelegate(target, index, data);
+    }
+
+
+    [UnmanagedCallersOnly]
+    private static void glGetIntegerui64ivNv(uint value, uint index, ulong* result)
+    {
+        _glGetIntegerui64ivNvDelegate = (delegate* unmanaged<uint, uint, ulong*, void>)Glfw.Glfw.GetProcAddress("glGetIntegerui64i_vNV");
+        _glGetIntegerui64ivNvDelegate(value, index, result);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetIntegerui64vNv(uint value, ulong* result)
+    {
+        _glGetIntegerui64vNvDelegate = (delegate* unmanaged<uint, ulong*, void>)Glfw.Glfw.GetProcAddress("glGetIntegerui64vNV");
+        _glGetIntegerui64vNvDelegate(value, result);
+    }
+
+
+    [UnmanagedCallersOnly]
+    private static void glGetIntegerv(uint pname, int* data)
+    {
+        _glGetIntegervDelegate = (delegate* unmanaged<uint, int*, void>)Glfw.Glfw.GetProcAddress("glGetIntegerv");
+        _glGetIntegervDelegate(pname, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetDoubleiv(uint target, uint index, double* data)
+    {
+        _glGetDoubleivDelegate = (delegate* unmanaged<uint, uint, double*, void>)Glfw.Glfw.GetProcAddress("glGetDoublei_v");
+        _glGetDoubleivDelegate(target, index, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetDoublev(uint pname, double* data)
+    {
+        _glGetDoublevDelegate = (delegate* unmanaged<uint, double*, void>)Glfw.Glfw.GetProcAddress("glGetDoublev");
+        _glGetDoublevDelegate(pname, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetBooleaniv(uint target, uint index, byte* data)
+    {
+        _glGetBooleanivDelegate = (delegate* unmanaged<uint, uint, byte*, void>)Glfw.Glfw.GetProcAddress("glGetBooleani_v");
+        _glGetBooleanivDelegate(target, index, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glGetBooleanv(uint pname, byte* data)
+    {
+        _glGetBooleanvDelegate = (delegate* unmanaged<uint, byte*, void>)Glfw.Glfw.GetProcAddress("glGetBooleanv");
+        _glGetBooleanvDelegate(pname, data);
     }
 }
