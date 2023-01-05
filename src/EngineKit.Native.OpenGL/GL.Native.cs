@@ -252,6 +252,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativDelegate = &glGetFloativ;
     private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativNvDelegate = &glGetFloativNv;
     private static delegate* unmanaged<uint, float*, void> _glGetFloatvDelegate = &glGetFloatv;
+    private static delegate* unmanaged<uint, uint, byte*> _glGetStringiDelegate = &glGetStringi;
 
     [UnmanagedCallersOnly]
     private static void glGetFloativ(uint target, uint index, float* data)
@@ -1640,5 +1641,12 @@ public static unsafe partial class GL
     {
         _glGetBooleanvDelegate = (delegate* unmanaged<uint, byte*, void>)Glfw.Glfw.GetProcAddress("glGetBooleanv");
         _glGetBooleanvDelegate(pname, data);
+    }
+
+    [UnmanagedCallersOnly]
+    private static byte* glGetStringi(uint name, uint index)
+    {
+        _glGetStringiDelegate = (delegate* unmanaged<uint, uint, byte*>)Glfw.Glfw.GetProcAddress("glGetStringi");
+        return _glGetStringiDelegate(name, index);
     }
 }

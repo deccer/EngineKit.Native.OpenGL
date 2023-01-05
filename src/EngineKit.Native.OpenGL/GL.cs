@@ -25,25 +25,13 @@ public static unsafe partial class GL
             : Marshal.PtrToStringAnsi((nint)result)) ?? string.Empty;
     }
 
-    /*
-
-    private static delegate* unmanaged<uint, byte*, void> _glGetBooleanvDelegate = &glGetBooleanv;
-    private static delegate* unmanaged<uint, double*, void> _glGetDoublevDelegate = &glGetDoublev;
-    private static delegate* unmanaged<uint, float*, void> _glGetFloatvDelegate = &glGetFloatv;
-    private static delegate* unmanaged<uint, int*, void> _glGetIntegervDelegate = &glGetIntegerv;
-    private static delegate* unmanaged<uint, long*, void> _glGetInteger64vDelegate = &glGetInteger64v;
-
-
-    private static delegate* unmanaged<uint, uint, byte*, void> _glGetBooleanivDelegate = &glGetBooleaniv;
-    private static delegate* unmanaged<uint, uint, double*, void> _glGetDoubleivDelegate = &glGetDoubleiv;
-    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativDelegate = &glGetFloativ;
-    private static delegate* unmanaged<uint, uint, float*, void> _glGetFloativNvDelegate = &glGetFloativNv;
-    private static delegate* unmanaged<uint, uint, int*, void> _glGetIntegerivDelegate = &glGetIntegeriv;
-
-    private static delegate* unmanaged<uint, uint, long*, void> _glGetInteger64ivDelegate = &glGetInteger64iv;
-    private static delegate* unmanaged<uint, uint, ulong*, void> _glGetIntegerui64ivNvDelegate = &glGetIntegerui64ivNv;
-    private static delegate* unmanaged<uint, ulong*, void> _glGetIntegerui64vNvDelegate = &glGetIntegerui64vNv;
-    */
+    public static string GetString(StringName stringName, uint index)
+    {
+        var result = _glGetStringiDelegate((uint)stringName, index);
+        return (result == null
+            ? string.Empty
+            : Marshal.PtrToStringAnsi((nint)result)) ?? string.Empty;
+    }
 
     public static bool GetBoolean(uint parameter)
     {

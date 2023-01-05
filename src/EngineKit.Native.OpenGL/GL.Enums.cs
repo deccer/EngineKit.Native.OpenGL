@@ -4,6 +4,15 @@ namespace EngineKit.Native.OpenGL;
 
 public static partial class GL
 {
+    public enum GpuMemoryInfo : uint
+    {
+        DedicatedVideoMemory = 0x9047,
+        TotalAvailableMemory = 0x9048,
+        CurrentAvailableVideoMemory = 0x9049,
+        EvictionCount = 0x904A,
+        EvictedMemory = 0x904B
+    }
+
     public enum StringName : uint
     {
         Vendor = 7936,
@@ -11,6 +20,11 @@ public static partial class GL
         Version = 7938,
         Extensions = 7939,
         ShadingLanguageVersion = 35724,
+    }
+
+    public enum GetName : uint
+    {
+        NumExtensions = 0x821D
     }
 
     [Flags]
@@ -966,7 +980,7 @@ public static partial class GL
         TexturePriorityExt = 32870,
         TextureMemoryLayoutIntel = 33791,
     }
-    
+
     [Flags]
     public enum MemoryBarrierMask : uint
     {
