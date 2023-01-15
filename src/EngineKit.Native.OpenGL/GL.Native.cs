@@ -785,7 +785,7 @@ public static unsafe partial class GL
         int baseVertex)
     {
         _glDrawElementsInstancedBaseVertexDelegate = (delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, int, int, void>)Glfw.Glfw.GetProcAddress(
-            nameof(_glDrawElementsInstancedBaseVertexDelegate));
+            nameof(glDrawElementsInstancedBaseVertex));
         _glDrawElementsInstancedBaseVertexDelegate(
             primitiveType,
             elementCount,
@@ -806,7 +806,7 @@ public static unsafe partial class GL
         int baseInstance)
     {
         _glDrawElementsInstancedBaseVertexBaseInstanceDelegate = (delegate* unmanaged<PrimitiveType, int, IndexElementType, void*, int, int, int, void>)Glfw.Glfw.GetProcAddress(
-            nameof(_glDrawElementsInstancedBaseVertexBaseInstanceDelegate));
+            nameof(glDrawElementsInstancedBaseVertexBaseInstance));
         _glDrawElementsInstancedBaseVertexBaseInstanceDelegate(
             primitiveType,
             elementCount,
