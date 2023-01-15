@@ -1,50 +1,19 @@
-using System;
-using System.Threading;
+using EngineKit.Native.OpenGL.Tests.Infrastructure;
 using FluentAssertions;
 using Xunit;
 
 namespace EngineKit.Native.OpenGL.Tests;
 
-public sealed class GlfwContext : IDisposable
+// ReSharper disable once ClassNeverInstantiated.Global
+[Collection("Serial-Test-Collection")]
+public class OpenGLTests : IClassFixture<GlfwOpenGLDummyWindow>
 {
-    private readonly IntPtr _windowHandle;
+    // ReSharper disable once NotAccessedField.Local
+    private readonly GlfwOpenGLDummyWindow _dummyWindow;
 
-    public GlfwContext()
+    public OpenGLTests(GlfwOpenGLDummyWindow dummyWindow)
     {
-        Glfw.Glfw.Init();
-        Glfw.Glfw.WindowHint(Glfw.Glfw.WindowOpenGLContextHint.Profile, Glfw.Glfw.OpenGLProfile.Core);
-        Glfw.Glfw.WindowHint(Glfw.Glfw.WindowOpenGLContextHint.VersionMajor, 4);
-        Glfw.Glfw.WindowHint(Glfw.Glfw.WindowOpenGLContextHint.VersionMinor, 6);
-        _windowHandle = Glfw.Glfw.CreateWindow(100, 100, "OpenGLTests", IntPtr.Zero, IntPtr.Zero);
-        Glfw.Glfw.MakeContextCurrent(_windowHandle);
-        Thread.Sleep(500);
-    }
-
-    public void Dispose()
-    {
-        Thread.Sleep(1000);
-        Glfw.Glfw.DestroyWindow(_windowHandle);
-        Thread.Sleep(500);
-        Glfw.Glfw.Terminate();
-    }
-}
-
-public class OpenGLTests : IClassFixture<GlfwContext>
-{
-    private readonly GlfwContext _context;
-
-
-    public OpenGLTests(GlfwContext context)
-    {
-        _context = context;
-    }
-
-    [Fact]
-    public void CreateAndDeleteBuffer()
-    {
-        var buffer = GL.CreateBuffer();
-        buffer.Should().NotBe(0);
-        GL.DeleteBuffer(buffer);
+        _dummyWindow = dummyWindow;
     }
 
     [Fact]
