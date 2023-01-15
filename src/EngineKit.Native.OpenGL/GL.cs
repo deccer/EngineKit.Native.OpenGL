@@ -456,6 +456,26 @@ public static unsafe partial class GL
             baseVertex);
     }
 
+    public static void DrawElementsInstancedBaseVertexBaseInstance(
+        PrimitiveType primitiveType,
+        int elementCount,
+        IndexElementType indexElementType,
+        int elementOffset,
+        int instanceCount,
+        int baseVertex,
+        int baseInstance)
+    {
+        var indices = (void*)elementOffset;
+        _glDrawElementsInstancedBaseVertexBaseInstanceDelegate(
+            primitiveType,
+            elementCount,
+            indexElementType,
+            indices,
+            instanceCount,
+            baseVertex,
+            baseInstance);
+    }
+
     public static void DrawArraysInstancedBaseInstance(
         PrimitiveType primitiveType,
         int firstVertex,
