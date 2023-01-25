@@ -1056,6 +1056,17 @@ public static unsafe partial class GL
         _glDebugMessageCallbackDelegate(callbackPtr, userParamPtr);
     }
 
+    public static void DebugMessageInsert(DebugSource source,
+        DebugType type,
+        uint id,
+        DebugSeverity severity,
+        string message)
+    {
+        var messagePtr = (byte*)Marshal.StringToCoTaskMemUTF8(message);
+        _glDebugMessageInsertDelegate(source, type, id, severity, message.Length, messagePtr);
+        Marshal.FreeCoTaskMem((nint)messagePtr);
+    }
+
     public static void VertexArrayVertexBuffer(
         uint vao,
         uint bindingIndex,

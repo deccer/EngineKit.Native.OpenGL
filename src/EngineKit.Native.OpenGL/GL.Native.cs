@@ -181,6 +181,7 @@ public static unsafe partial class GL
         &glNamedFramebufferDrawBuffers;
 
     private static delegate* unmanaged<IntPtr, void*, void> _glDebugMessageCallbackDelegate = &glDebugMessageCallback;
+    private static delegate* unmanaged<DebugSource, DebugType, uint, DebugSeverity, int, byte*, void> _glDebugMessageInsertDelegate = &glDebugMessageInsert;
 
     private static delegate* unmanaged<uint, uint, uint, IntPtr, int, void> _glVertexArrayVertexBufferDelegate =
         &glVertexArrayVertexBuffer;
@@ -1247,6 +1248,19 @@ public static unsafe partial class GL
         _glDebugMessageCallbackDelegate =
             (delegate* unmanaged<IntPtr, void*, void>)Glfw.Glfw.GetProcAddress(nameof(glDebugMessageCallback));
         _glDebugMessageCallbackDelegate(callback, userParam);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glDebugMessageInsert(
+        DebugSource source,
+        DebugType type,
+        uint id,
+        DebugSeverity severity,
+        int length,
+        byte* message)
+    {
+        _glDebugMessageInsertDelegate = (delegate* unmanaged<DebugSource, DebugType, uint, DebugSeverity, int, byte*, void>)Glfw.Glfw.GetProcAddress(nameof(glDebugMessageInsert));
+        _glDebugMessageInsertDelegate(source, type, id, severity, length, message);
     }
 
     [UnmanagedCallersOnly]
