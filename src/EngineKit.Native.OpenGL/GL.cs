@@ -155,14 +155,14 @@ public static unsafe partial class GL
             destinationAlpha);
     }
 
-    public static void BindBuffer(BufferTarget bufferTarget, uint id)
+    public static void BindBuffer(BufferTarget bufferTarget, uint bufferId)
     {
-        _glBindBufferDelegate(bufferTarget, id);
+        _glBindBufferDelegate(bufferTarget, bufferId);
     }
 
-    public static void BindBufferBase(BufferTarget bufferTarget, uint slot, uint id)
+    public static void BindBufferBase(BufferTarget bufferTarget, uint slot, uint bufferId)
     {
-        _glBindBufferBaseDelegate(bufferTarget, slot, id);
+        _glBindBufferBaseDelegate(bufferTarget, slot, bufferId);
     }
 
     public static void BindBufferRange(BufferTarget bufferTarget, uint slot, uint bufferId, nint offset, nint size)
