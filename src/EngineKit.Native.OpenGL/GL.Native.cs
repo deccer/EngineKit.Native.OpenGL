@@ -9,6 +9,7 @@ public static unsafe partial class GL
     private static delegate* unmanaged<StringName, byte*> _glGetStringDelegate = &glGetString;
     private static delegate* unmanaged<BufferTarget, uint, void> _glBindBufferDelegate = &glBindBuffer;
     private static delegate* unmanaged<BufferTarget, uint, uint, void> _glBindBufferBaseDelegate = &glBindBufferBase;
+    private static delegate* unmanaged<BufferTarget, uint, uint, int*, nint, void> _glBindBufferRangeDelegate = &glBindBufferRange;
     private static delegate* unmanaged<FramebufferTarget, uint, void> _glBindFramebufferDelegate = &glBindFramebuffer;
     private static delegate* unmanaged<uint, void> _glBindProgramPipelineDelegate = &glBindProgramPipeline;
     private static delegate* unmanaged<uint, void> _glBindVertexArrayDelegate = &glBindVertexArray;
@@ -317,11 +318,18 @@ public static unsafe partial class GL
     }
 
     [UnmanagedCallersOnly]
-    private static void glBindBufferBase(BufferTarget bufferTarget, uint slot, uint id)
+    private static void glBindBufferBase(BufferTarget bufferTarget, uint slot, uint bufferId)
     {
         _glBindBufferBaseDelegate =
             (delegate* unmanaged<BufferTarget, uint, uint, void>)Glfw.Glfw.GetProcAddress(nameof(glBindBufferBase));
-        _glBindBufferBaseDelegate(bufferTarget, slot, id);
+        _glBindBufferBaseDelegate(bufferTarget, slot, bufferId);
+    }
+
+    [UnmanagedCallersOnly]
+    private static void glBindBufferRange(BufferTarget bufferTarget, uint slot, uint bufferId, int* offset, nint size)
+    {
+        _glBindBufferRangeDelegate = (delegate* unmanaged<BufferTarget, uint, uint, int*, nint, void>)Glfw.Glfw.GetProcAddress(nameof(glBindBufferRange));
+        _glBindBufferRangeDelegate(bufferTarget, slot, bufferId, offset, size);
     }
 
     [UnmanagedCallersOnly]

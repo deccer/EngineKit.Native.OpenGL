@@ -165,6 +165,12 @@ public static unsafe partial class GL
         _glBindBufferBaseDelegate(bufferTarget, slot, id);
     }
 
+    public static void BindBufferRange(BufferTarget bufferTarget, uint slot, uint bufferId, nint offset, nint size)
+    {
+        var offsetPtr = (int*)offset;
+        _glBindBufferRangeDelegate(bufferTarget, slot, bufferId, offsetPtr, size);
+    }
+
     public static void BindVertexArray(uint vertexArray)
     {
         _glBindVertexArrayDelegate(vertexArray);
